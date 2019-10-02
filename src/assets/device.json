@@ -61,7 +61,9 @@
         "outPrefix": "-out",
         "inPrefix": "-in",
         "nativeType": 23,
-        "nativeResource": 48
+        "nativeResource": 48,
+        "latitude":47.413220, 
+        "longitude":-1.219482
       },
       {
         "id": "22",
@@ -106,7 +108,9 @@
         "outPrefix": "-out",
         "inPrefix": "-in",
         "nativeType": 8,
-        "nativeResource": 4
+        "nativeResource": 4,
+        "latitude":46.5833, 
+        "longitude":0.3333
       },
       {
         "id": "23",
@@ -149,7 +153,9 @@
         "outPrefix": "-out",
         "inPrefix": "-in",
         "nativeType": 38,
-        "nativeResource": 49
+        "nativeResource": 49,
+        "latitude":47.218371, 
+        "longitude":-1.553621
       },
       {
         "id": "24",
