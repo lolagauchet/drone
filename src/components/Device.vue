@@ -3,19 +3,25 @@
   <div class="device">
   
     <p>{{ device }} </p>
-  
+    <p> Here are my sensors </p>
+      <li v-for="drone in drones">
+       {{drone.name}}
+      </li>
+    
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
+import deviceTree from '@/assets/device.json';
 export default {
   name: "Device",
 
   data() {
     return {
        errors: [],
+       drones: deviceTree.children,
     };
   },
 
@@ -23,6 +29,14 @@ export default {
          ...mapGetters({
             device : 'device',
         }),
+        updatedSensor: {
+          get() {
+            return this.drones;
+          },
+          set(value) {
+            this.drones = value;
+          },
+        },
     },
 
 };
