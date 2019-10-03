@@ -7,21 +7,35 @@
     </div>
     <div class="drones">
       <section class='drone_wrapper'>
-      <p> Here are my drones </p>
-        <div class='card' v-for="drone in drones">
+        <div class='card'
+        >
           <div class='card-content'>
-          <p> {{drone.name}}</p>
-          <p> lat : {{drone.latitude}}</p>
-          <p> long : {{drone.longitude}}</p>
+            <p class="has-text-weight-bold name"> {{drone.name}}</p>
+            <p> Lat : {{drone.latitude}}</p>
+            <p> Long : {{drone.longitude}}</p>
+
+        <div
+          class="sensor"
+          :key="droneSensor"
+          v-for="droneSensor in droneSensors"
+        >
+        
+          <p class="has-text-link	"> {{droneSensor.name}}</p>
+          <p v-if="droneSensor.vitesse"> Vitesse actuelle : {{droneSensor.vitesse}} km/h</p>
+          <p v-if="droneSensor.vitesseMax"> Vitesse max : {{droneSensor.vitesse}} km/h</p>
+          <p v-if="droneSensor.altitude"> Altitude actuelle : {{droneSensor.altitude}} m</p>
+          <p v-if="droneSensor.altitudeMax"> Altitude max : {{droneSensor.altitude}}m</p>
+
+        </div>
           </div>
         </div>
+        
       </section>
 
       <div class="map">
         <l-map :zoom="zoom" :center="center">
           <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
           <l-marker 
-            v-for="drone in drones"
             :lat-lng="latLng(drone.latitude, drone.longitude)"
           >
             <l-icon
@@ -33,13 +47,13 @@
       </div>
     </div>
   </div>
-  
+
   
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import deviceTree from '@/assets/device.json';
+import droneInfos from '@/assets/drone.json';
 import {LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet';
 import droneImg from '@/assets/drone.svg';
 export default {
@@ -47,7 +61,8 @@ export default {
   data() {
     return {
       errors: [],
-      drones: deviceTree.children,
+      drone: droneInfos,
+      droneSensors: droneInfos.children,
       zoom:13,
       center: L.latLng(47.413220, -1.219482),
       url:'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
@@ -74,10 +89,12 @@ export default {
       }),
       updatedSensor: {
         get() {
-          return this.drones;
+          return this.drone;
+          return this.droneSensors;
         },
         set(value) {
-          this.drones = value;
+          this.drone = value;
+          this.droneSensors = value;
         },
       },
   },
@@ -90,26 +107,36 @@ export default {
   max-width: 30%;
   margin: auto;
   }
+  .wrapper{
+    width: 70%;
+    margin: auto;
+  }
   .drones{
     display:flex;
     justify-content: space-between;
   }
   .drone_wrapper{
-    width:50%;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content: space-between;
+    width:30%;
   }
   .card{
-    width: 45%;
     margin:10px;
+    margin-top: 0;
+    &-content {
+      text-align: left;
+      .name{
+        margin-bottom: 20px;
+      }
+    }
   }
   input{
     margin-bottom: 20px;
   }
   .map{
-    width:50%;
+    width:70%;
     height:500px;
+  }
+  .sensor{
+    margin-top: 20px;
   }
 </style>
 

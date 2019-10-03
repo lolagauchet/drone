@@ -1,9 +1,12 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Login</router-link> |
-      <router-link to="/home">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="nav" class="navbar-menu">
+      <div class="navbar-start">
+
+      <router-link to="/" class="navbar-item">Login</router-link>
+      <router-link to="/home" class="navbar-item">Home</router-link>
+      <router-link to="/dashboard" class="navbar-item">Dashboard</router-link>
+      </div>
     </div>
     <router-view />
   </div>
@@ -19,8 +22,10 @@
   text-align: center;
   color: #2c3e50;
 }
-#nav {
-  padding: 30px;
+#nav {   
+  border-bottom: 1px solid #42b983;
+  padding: 10px 30px;
+  margin-bottom: 40px;
   a {
     font-weight: bold;
     color: #2c3e50;

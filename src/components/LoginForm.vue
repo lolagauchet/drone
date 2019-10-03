@@ -85,7 +85,7 @@ export default {
     login(){
       this.$store.dispatch('checkForm').then(
         response => {
-          this.$router.push("about");
+          this.$router.push("dashboard");
         }
       )
     }
