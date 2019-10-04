@@ -86,6 +86,7 @@ export default {
       this.$store.dispatch('checkForm').then(
         response => {
           this.$router.push("dashboard");
+          this.$store.dispatch('mqqtSocket');
         }
       )
     }

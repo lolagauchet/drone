@@ -1,14 +1,24 @@
 <template>
   <div class="dashboard">
-    <h1 class="is-size-4">Votre dashboard</h1>
-    <Drone />
+    <Drone :droneInfo="droneInfo" 
+ />
   </div>
 </template>
 <script>
 import Drone from "@/components/Drone.vue";
+import socket from "@/services/socket.js";
 
 export default {
   name: "login",
+  mounted(){
+    // this.$store.dispatch("getSensors"),
+    this.$store.dispatch("getFullState")
+  },
+  computed: {
+    droneInfo(){
+      return this.$store.state.sensors;
+    }
+  },
   components: {
     Drone
   }

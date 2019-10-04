@@ -24,7 +24,102 @@
       "longitude":-1.219482,
       "children": [
       {
-        "id": "21",
+        "id": "1",
+        "name": "Latitude",
+        "devEui": "1456278",
+        "latitude": 47.413220,
+        "lastSignal": "",
+        "lastSync": "",
+        "frameCounter": 0,
+        "type": 3202,
+        "resource": 5600,
+        "resources": {
+          "5600": 125,
+          "5601": 0,
+          "5602": 1023,
+          "5603": 0,
+          "5604": 1024,
+          "5750": "app",
+          "5751": "analog_input",
+          "5605": null
+        },
+        "icons": [
+          "/icons/aloes/analog.svg",
+          "/icons/aloes/analog.png",
+          "/icons/aloes/analog-white.png"
+        ],
+        "colors": {
+          "5600": "#000",
+          "5601": "#5ae2e2",
+          "5602": "#ff3535",
+          "5603": "#5ae2e2",
+          "5604": "#ff3535",
+          "5605": "#000",
+          "5750": "#000",
+          "5751": "#000"
+        },
+        "transportProtocol": "mySensors",
+        "messageProtocol": "mySensors",
+        "messageProtocolVersion": "2.3",
+        "nativeSensorId": "2",
+        "nativeNodeId": "4",
+        "nativeType": 23,
+        "nativeResource": 48,
+        "ownerId": "1",
+        "group": 2,
+        "size": 40,
+        "deviceId": "2",
+        "value": 47.413220
+      },
+      {
+        "id": "2",
+        "name": "Longitude",
+        "devEui": "1456278",
+        "longitude":-1.219482,
+        "lastSignal": "",
+        "lastSync": "",
+        "frameCounter": 0,
+        "type": 3202,
+        "resource": 5600,
+        "resources": {
+          "5600": 125,
+          "5601": 0,
+          "5602": 1023,
+          "5603": 0,
+          "5604": 1024,
+          "5750": "app",
+          "5751": "analog_input",
+          "5605": null
+        },
+        "icons": [
+          "/icons/aloes/analog.svg",
+          "/icons/aloes/analog.png",
+          "/icons/aloes/analog-white.png"
+        ],
+        "colors": {
+          "5600": "#000",
+          "5601": "#5ae2e2",
+          "5602": "#ff3535",
+          "5603": "#5ae2e2",
+          "5604": "#ff3535",
+          "5605": "#000",
+          "5750": "#000",
+          "5751": "#000"
+        },
+        "transportProtocol": "mySensors",
+        "messageProtocol": "mySensors",
+        "messageProtocolVersion": "2.3",
+        "nativeSensorId": "2",
+        "nativeNodeId": "4",
+        "nativeType": 23,
+        "nativeResource": 48,
+        "ownerId": "1",
+        "group": 2,
+        "size": 40,
+        "deviceId": "2"
+      },
+      {
+        "id": "3",
         "name": "Vitesse",
         "devEui": "1456278",
         "vitesse": "10",
@@ -73,7 +168,7 @@
         "value": 125
       },
       {
-        "id": "21",
+        "id": "4",
         "name": "Altitude",
         "devEui": "1456278",
         "altitude": "250",

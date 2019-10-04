@@ -2,41 +2,33 @@
 <template>
 
   <div class="wrapper">
-    <div class="device">
-      <p>{{ device }} </p>
-    </div>
     <div class="drones">
       <section class='drone_wrapper'>
         <div class='card'
         >
           <div class='card-content'>
-            <p class="has-text-weight-bold name"> {{drone.name}}</p>
-            <p> Lat : {{drone.latitude}}</p>
-            <p> Long : {{drone.longitude}}</p>
-
+            <p class="has-text-weight-bold name">{{droneInfo.name}}</p>
         <div
           class="sensor"
-          :key="droneSensor"
-          v-for="droneSensor in droneSensors"
-        >
-        
-          <p class="has-text-link	"> {{droneSensor.name}}</p>
-          <p v-if="droneSensor.vitesse"> Vitesse actuelle : {{droneSensor.vitesse}} km/h</p>
-          <p v-if="droneSensor.vitesseMax"> Vitesse max : {{droneSensor.vitesse}} km/h</p>
-          <p v-if="droneSensor.altitude"> Altitude actuelle : {{droneSensor.altitude}} m</p>
-          <p v-if="droneSensor.altitudeMax"> Altitude max : {{droneSensor.altitude}}m</p>
-
+          :key="sensorInfo.id"
+          v-for="sensorInfo in droneInfo.value"
+        >     
+          <p class="has-text-link	"> {{sensorInfo.name}}</p>
+          <div v-if="sensorInfo.type === 3336">
+            <p>Latitude : {{sensorInfo.resources[5514]}} </p>
+            <p>Longitude : {{sensorInfo.resources[5515]}} </p>
+          </div>
         </div>
           </div>
         </div>
         
       </section>
-
       <div class="map">
         <l-map :zoom="zoom" :center="center">
           <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+
           <l-marker 
-            :lat-lng="latLng(drone.latitude, drone.longitude)"
+            :lat-lng="marker"
           >
             <l-icon
               :icon-size="iconSize"
@@ -53,25 +45,26 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import droneInfos from '@/assets/drone.json';
+// import droneInfos from '@/assets/drone.json';
 import {LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet';
 import droneImg from '@/assets/drone.svg';
 export default {
-  name: "Device",
+  name: "Drone",
   data() {
     return {
       errors: [],
-      drone: droneInfos,
-      droneSensors: droneInfos.children,
       zoom:13,
-      center: L.latLng(47.413220, -1.219482),
+      center: L.latLng(0.0, 0.0),
       url:'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
       attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      marker: L.latLng(47.413220, -1.219482),
+      marker: L.latLng(0.0, 0.0),
       icon: droneImg,
       iconSize: [25,25]
     };
   },
+  props: [
+    "droneInfo"
+  ],
   components: {
       LMap,
       LTileLayer,
@@ -79,24 +72,17 @@ export default {
       LIcon
   },
   methods: {
-    latLng: function(lat, lng) {
-      return L.latLng(lat, lng);
-    }
+    // latLng: function(lat, lng) {
+    //   return L.latLng("lat, lng");
+    // },
   },
-  computed: {
-        ...mapGetters({
+   computed: {  
+      ...mapGetters({
           device : 'device',
-      }),
-      updatedSensor: {
-        get() {
-          return this.drone;
-          return this.droneSensors;
-        },
-        set(value) {
-          this.drone = value;
-          this.droneSensors = value;
-        },
-      },
+      })
+      // dronePos(){
+      //   return L.latLng(this.droneInfos.children[0].latitude, this.droneInfos.children[1].longitude )
+      // }
   },
 
 };
