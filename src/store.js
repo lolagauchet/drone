@@ -37,7 +37,7 @@ export default new Vuex.Store({
     checkForm({state, commit}){
       return new Promise((resolve) => {
         axios
-          .post('http://10.28.72.2:8000/api/Devices/authenticate', {
+          .post('https://aloes.io/app/api/Devices/authenticate', {
             deviceId: state.loginForm.deviceId,
             apiKey: state.loginForm.apiKey
           })
@@ -51,7 +51,7 @@ export default new Vuex.Store({
                 key: "devEui",
                 value: response.data.device.devEui
               })
-              // console.log(response.data.device);
+              console.log(response.data.device);
             
               resolve(true);
               return response.data.device
@@ -67,20 +67,20 @@ export default new Vuex.Store({
     },
     getFullState({state, commit}){
         axios
-          .get('http://10.28.72.2:8000/api/Devices/get-full-state/' + this.state.loginForm.deviceId, {
+          .get('https://aloes.io/app/api/Devices/get-full-state/' + this.state.loginForm.deviceId, {
             headers:{
               devEui: state.loginForm.devEui,
               apiKey: state.loginForm.apiKey
             }
           })
           .then(response => {
-            console.log(response);
+            // console.log(response);
             if (response.data && response.data.sensors) {
               commit('setSensors', {
                 key: "sensors",
                 value: response.data.sensors
               })
-              console.log(response.data.sensors);
+              // console.log(response.data.sensors);
               return response.data.sensors
             }
             return 'sensors not found'

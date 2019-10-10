@@ -5,7 +5,7 @@ var mqtt = require('mqtt')
 
 const Storage = window.sessionStorage;
 
-const brokerUrl = "ws://10.28.72.2:3000";
+const brokerUrl = "wss://aloes.io/ws";
 const socket = {};
 const payload = 'notsaved';
 
@@ -16,11 +16,11 @@ socket.initSocket = async (baseOptions) => {
     //PROJET MQTT
     socket.client = await mqtt.connect(brokerUrl, baseOptions);
     socket.client.on('connect', async state => {
-        console.log(socket)
-        socket.client.subscribe(baseOptions.clientId+"-in/#", () => {
-          console.log('subscribe')
-        })
-        socket.client.publish(baseOptions.clientId+"-out/0/3342/0/2/5500", payload)       
+        // console.log(socket)
+        // socket.client.subscribe(baseOptions.clientId+"-in/#", () => {
+        //   console.log('subscribe')
+        // })
+        // socket.client.publish(baseOptions.clientId+"-out/0/3346/0/2/5700", payload)       
     });
     socket.client.on('message', (topic, message) => {
       console.log(message)

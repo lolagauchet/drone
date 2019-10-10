@@ -3,28 +3,43 @@
 
   <div class="wrapper">
     <div class="drones">
-      <section class='drone_wrapper'>
         <div class='card'
-        >
-          <div class='card-content'>
-            <p class="has-text-weight-bold name">{{droneInfo.name}}</p>
-        <div
-          class="sensor"
           :key="sensorInfo.id"
           v-for="sensorInfo in droneInfo.value"
-        >     
-          <p class="has-text-link	"> {{sensorInfo.name}}</p>
-          <div v-if="sensorInfo.type === 3336">
-            <p>Latitude : {{sensorInfo.resources[5514]}} </p>
-            <p>Longitude : {{sensorInfo.resources[5515]}} </p>
+        >
+          <div class='card-content sensor'>
+            <p class="has-text-link	sensor--name"> {{sensorInfo.name}}</p>
+            <div v-if="sensorInfo.type === 3336">
+              <p class="has-text-weight-semibold">Latitude actuelle : {{sensorInfo.resources[5514]}} </p>
+              <p class="has-text-weight-semibold">Longitude actuelle : {{sensorInfo.resources[5515]}} </p>
+              <div class="separator"></div>
+              <div class="new_lat">
+                <p>Nouvelle latitude</p>
+                <input class="input is-primary is-small" type="number" name="quantity" min="1" max="5">
+              </div>
+              <div class="new_long">
+                <p>Nouvelle longitude</p>
+                <input class="input is-primary is-small" type="number" name="quantity" min="1" max="5">
+              </div>
+            </div>
+            <div v-if="sensorInfo.type === 3342">
+              <div class="button is-primary">ON</div>
+              <div class="button is-danger is-outlined">OFF</div>
+            </div>
+            <div v-if="sensorInfo.type === 3321">
+              <p class="has-text-weight-semibold">Altitude actuelle : {{sensorInfo.resources[5514]}} m </p>
+              <div class="separator"></div>
+              <div class="new_lat">
+                <p>Nouvelle altitude</p>
+                <input class="input is-primary is-small" type="number" name="quantity" min="1" max="5">
+              </div>
+            </div>
           </div>
-        </div>
-          </div>
-        </div>
-        
-      </section>
+      </div>
+    </div>
+    
       <div class="map">
-        <l-map :zoom="zoom" :center="center">
+        <l-map :zoom="zoom" :center="center" ref="myMap">
           <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
 
           <l-marker 
@@ -37,7 +52,6 @@
           </l-marker>
         </l-map>
       </div>
-    </div>
   </div>
 
   
@@ -62,6 +76,16 @@ export default {
       iconSize: [25,25]
     };
   },
+  // mounted () {
+  //     this.$nextTick(() => {
+  //       this.$refs.myMap.mapObject.L.Routing.control({
+  //         waypoints: [
+  //           L.latLng(57.74, 11.94),
+  //           L.latLng(57.6792, 11.949)
+  //         ]
+  //       }).addTo(map);
+  //     })
+  //   },
   props: [
     "droneInfo"
   ],
@@ -93,36 +117,52 @@ export default {
   max-width: 30%;
   margin: auto;
   }
-  .wrapper{
+  .drones{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 30px 15px;
     width: 70%;
     margin: auto;
-  }
-  .drones{
-    display:flex;
-    justify-content: space-between;
-  }
-  .drone_wrapper{
-    width:30%;
+    margin-bottom: 40px;
   }
   .card{
-    margin:10px;
     margin-top: 0;
     &-content {
       text-align: left;
+      height: 100%;
       .name{
         margin-bottom: 20px;
       }
+    }
+  }
+  .separator{
+    height: 2px;
+    background-color: #f3f3f3;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .new{
+    &_lat, &_long{
+      display: grid;
+       grid-template-columns: 2fr 1fr;
     }
   }
   input{
     margin-bottom: 20px;
   }
   .map{
-    width:70%;
     height:500px;
   }
   .sensor{
-    margin-top: 20px;
+    position: relative;
+    &--name{
+      background-color: #fff;
+      padding: 10px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 </style>
 
