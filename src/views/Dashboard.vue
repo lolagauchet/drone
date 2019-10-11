@@ -17,6 +17,7 @@ export default {
   computed: {
     droneInfo(){
       return this.$store.state.sensors;
+      // console.log(this.$store.state.sensors);
     }
   },
   components: {

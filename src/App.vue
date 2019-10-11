@@ -4,7 +4,6 @@
       <div class="navbar-start">
 
       <router-link to="/" class="navbar-item">Login</router-link>
-      <router-link to="/home" class="navbar-item">Home</router-link>
       <router-link to="/dashboard" class="navbar-item">Dashboard</router-link>
       </div>
     </div>

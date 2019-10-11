@@ -14,7 +14,9 @@ export default new Vuex.Store({
       apiKey: null,
       device: null,
     },
-    sensors: []
+    sensors: [],
+    latitude: null,
+    longitude: null
   },
   getters: {
     device: state => {
@@ -28,6 +30,9 @@ export default new Vuex.Store({
     setValue(state, {key, value}){
       state.loginForm[key] = value
     },
+    setValueSensor(state, {key, value}){
+      state[key] = value
+    },
     setSensors(state, value){
       state.sensors = value
     }
@@ -37,7 +42,7 @@ export default new Vuex.Store({
     checkForm({state, commit}){
       return new Promise((resolve) => {
         axios
-          .post('https://aloes.io/app/api/Devices/authenticate', {
+          .post(`${process.env.VUE_APP_SERVER_URL}`, {
             deviceId: state.loginForm.deviceId,
             apiKey: state.loginForm.apiKey
           })
@@ -51,6 +56,7 @@ export default new Vuex.Store({
                 key: "devEui",
                 value: response.data.device.devEui
               })
+              console.log(response.data);
               console.log(response.data.device);
             
               resolve(true);
@@ -67,7 +73,7 @@ export default new Vuex.Store({
     },
     getFullState({state, commit}){
         axios
-          .get('https://aloes.io/app/api/Devices/get-full-state/' + this.state.loginForm.deviceId, {
+          .get(`${process.env.VUE_APP_HTTP_URL}` + this.state.loginForm.deviceId, {
             headers:{
               devEui: state.loginForm.devEui,
               apiKey: state.loginForm.apiKey
@@ -89,6 +95,44 @@ export default new Vuex.Store({
             console.log('error', error)
           }
       )
+    },
+    updateLat({state, commit}){
+      const baseOptions = {
+        //  keepalive: 60,
+        // reschedulePings: true,
+        protocolId: 'MQTT',
+        protocolVersion: 4,
+        reconnectPeriod: 3000,
+        connectTimeout: 30 * 1000,
+        clean: true,
+        clientId: this.state.loginForm.devEui,
+        username: this.state.loginForm.deviceId,
+        password: this.state.loginForm.apiKey,
+      };
+
+      socket.updateSocket(baseOptions, {
+        "ref": "3336",
+        "ressourceID": "5514",
+        'latitude':state.latitude
+      })
+    },
+    updateLong({state, commit}){
+      const baseOptions = {
+        protocolId: 'MQTT',
+        protocolVersion: 4,
+        reconnectPeriod: 3000,
+        connectTimeout: 30 * 1000,
+        clean: true,
+        clientId: this.state.loginForm.devEui,
+        username: this.state.loginForm.deviceId,
+        password: this.state.loginForm.apiKey,
+      };
+
+      socket.updateSocket(baseOptions, {
+        "ref": "3336",
+        "ressourceID": "5515",
+        'longitude':state.longitude
+      })
     },
     mqqtSocket(){
       const baseOptions = {

@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start:local": "cp deploy/.env_local .env && vue-cli-service serve",
+    "start:stage": "cp deploy/.env_stage .env && vue-cli-service serve"
   },
   "dependencies": {
     "axios": "^0.19.0",

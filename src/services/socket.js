@@ -5,7 +5,7 @@ var mqtt = require('mqtt')
 
 const Storage = window.sessionStorage;
 
-const brokerUrl = "wss://aloes.io/ws";
+const brokerUrl =`${process.env.VUE_APP_MQTT_URL}`;
 const socket = {};
 const payload = 'notsaved';
 
@@ -20,11 +20,28 @@ socket.initSocket = async (baseOptions) => {
         // socket.client.subscribe(baseOptions.clientId+"-in/#", () => {
         //   console.log('subscribe')
         // })
-        // socket.client.publish(baseOptions.clientId+"-out/0/3346/0/2/5700", payload)       
+        socket.client.publish(baseOptions.clientId+"-out/3/3339/0/2/5522", payload)       
     });
     socket.client.on('message', (topic, message) => {
       console.log(message)
     });
+    return socket;
+  } 
+  catch (error) {
+    // logger.publish(3, 'socket', 'initSocket:err', error);
+    throw error; 
+  }
+};
+socket.updateSocket = async (baseOptions, prop ) => {
+  console.log(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.latitude);
+  
+  try {
+  
+    socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.latitude)       
+    socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.longitude)       
+    // socket.client.on('message', (topic, message) => {
+    //   console.log(message)
+    // });
     return socket;
   } 
   catch (error) {
