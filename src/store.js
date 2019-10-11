@@ -35,7 +35,10 @@ export default new Vuex.Store({
     },
     setSensors(state, value){
       state.sensors = value
-    }
+    },
+    // updateSensor(state,topicSplit){
+    //   state.sensors.type = topicSplit[2]
+    // }
     
   },
   actions: {
@@ -147,10 +150,18 @@ export default new Vuex.Store({
         username: this.state.loginForm.deviceId,
         password: this.state.loginForm.apiKey,
       };
-
-      socket.initSocket(baseOptions)
+    
+      socket.initSocket(baseOptions);
+      socket.sendFakeData(baseOptions);
+      // console.log(readMessage);
               
     },
+    updateSensorGlobal(context, topicSplit){
+      commit('updateSensor', {
+        key: "topicSplit",
+        value: topicSplit
+      })
+    }
     // getSensors(context){
     //   context.commit("setSensors", droneInfo)
     // }
