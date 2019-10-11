@@ -29,7 +29,8 @@ socket.initSocket =  (baseOptions) => {
     socket.client.on('message', (topic, message) => {
       // console.log("dofdopfidospfi", topic);
       // return topic.split('/');
-      EventBus.$emit('new-received-message', topic.split('/'));
+      var topicSplit = topic.split('/');
+      EventBus.$emit('new-received-message', {topicSplit, message});
     });
     // return socket;
   } 
@@ -58,8 +59,8 @@ socket.updateSocket =  (baseOptions, prop ) => {
 socket.sendFakeData =  (baseOptions) => {
   try {
     setInterval( function() {
-      socket.client.publish(baseOptions.clientId+"-in/1/3342/0/2/5500", "1")    
-    }, 1000);
+      socket.client.publish(baseOptions.clientId+"-in/1/3342/0/2/5500", "0")   
+    }, 5000);
   } 
   catch (error) {
     throw error; 

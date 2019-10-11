@@ -36,9 +36,13 @@ export default new Vuex.Store({
     setSensors(state, value){
       state.sensors = value
     },
-    // updateSensor(state,topicSplit){
-    //   state.sensors.type = topicSplit[2]
-    // }
+    updateSensor(state,payload){
+      // console.log(payload.value.topicSplit);
+      var sensorModified = state.sensors.value.find(function(sensor) {
+        return sensor.type == payload.value.topicSplit[2] && sensor.nativeNodeId == payload.value.topicSplit[3] && sensor.nativeSensorId == payload.value.topicSplit[4]
+      });
+      sensorModified.resources[payload.value.topicSplit[5]] = payload.value.message
+    }
     
   },
   actions: {
@@ -156,10 +160,13 @@ export default new Vuex.Store({
       // console.log(readMessage);
               
     },
-    updateSensorGlobal(context, topicSplit){
-      commit('updateSensor', {
+    updateSensorGlobal(context, {topicSplit, message}){
+      // console.log(topicSplit);
+      var payload = {"topicSplit":topicSplit,"message": message} 
+      // console.log(payload);
+      context.commit('updateSensor', {
         key: "topicSplit",
-        value: topicSplit
+        value: payload
       })
     }
     // getSensors(context){

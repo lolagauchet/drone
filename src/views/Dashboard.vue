@@ -24,18 +24,20 @@ import SensorMap from "@/components/SensorMap.vue";
 import socket from "@/services/socket.js";
 import { EventBus } from '@/services/eventBus.js';
 
-EventBus.$on('new-received-message', topicSplit => {
-  // console.log('in event bus');
-  console.log(topicSplit);
-  //  this.$store.dispatch('updateSensorGlobal', topicSplit);
-});
+
 
 export default {
   name: "login",
   
   mounted(){
     // this.$store.dispatch("getSensors"),
-    this.$store.dispatch("getFullState")
+    this.$store.dispatch("getFullState");
+    var vm = this;
+    EventBus.$on('new-received-message', ({topicSplit, message}) => {
+      // console.log('in event bus');
+      // console.log(topicSplit);
+      vm.$store.dispatch('updateSensorGlobal', {topicSplit, message});
+    });
   },
   computed: {
     droneInfo(){
