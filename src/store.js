@@ -36,6 +36,7 @@ export default new Vuex.Store({
     setSensors(state, value){
       state.sensors = value
     },
+    // mise à jour du sensor lors de la reception d'une nouvelle donnée
     updateSensor(state,payload){
       // console.log(payload.value.topicSplit);
       var sensorModified = state.sensors.value.find(function(sensor) {
@@ -103,6 +104,7 @@ export default new Vuex.Store({
           }
       )
     },
+    // mise à jour de la valeur de la latitude 
     updateLat({state, commit}){
       const baseOptions = {
         //  keepalive: 60,
@@ -123,6 +125,7 @@ export default new Vuex.Store({
         'latitude':state.latitude
       })
     },
+    // mise à jour de la valeur de la longitude 
     updateLong({state, commit}){
       const baseOptions = {
         protocolId: 'MQTT',
@@ -160,6 +163,7 @@ export default new Vuex.Store({
       // console.log(readMessage);
               
     },
+    // mise à jour du sensor lors de la reception d'une nouvelle donnée
     updateSensorGlobal(context, {topicSplit, message}){
       // console.log(topicSplit);
       var payload = {"topicSplit":topicSplit,"message": message} 

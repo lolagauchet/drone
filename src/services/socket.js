@@ -11,7 +11,7 @@ const brokerUrl =`${process.env.VUE_APP_MQTT_URL}`;
 const socket = {};
 const payload = 'notsaved';
 
-// projet
+// connexion mqtt
 socket.initSocket =  (baseOptions) => {
   // console.log(baseOptions)
   try {
@@ -22,8 +22,8 @@ socket.initSocket =  (baseOptions) => {
         socket.client.subscribe(baseOptions.clientId+"-in/1/#", () => {
           console.log('subscribe')
         })
-        socket.client.publish(baseOptions.clientId+"-out/3/3339/0/2/5522", payload)   
-        socket.client.publish(baseOptions.clientId+"-out/3/3339/0/2/5522", payload)   
+        // suppression d'un sensor
+        // socket.client.publish(baseOptions.clientId+"-out/3/3332/0/2/5601", payload)   
 
     });
     socket.client.on('message', (topic, message) => {
@@ -39,13 +39,15 @@ socket.initSocket =  (baseOptions) => {
     throw error; 
   }
 };
+
+// mise à jour des données du drone lorsqu'elles sont changées sur le dashboard par l'utilisateur
 socket.updateSocket =  (baseOptions, prop ) => {
   console.log(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.latitude);
   
   try {
   
-    socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.latitude)       
-    // socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.longitude)       
+    // socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.latitude)       
+    socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.longitude)       
     // socket.client.on('message', (topic, message) => {
     //   console.log(message)
     // });
@@ -56,6 +58,8 @@ socket.updateSocket =  (baseOptions, prop ) => {
     throw error; 
   }
 };
+
+// envoi de fausses données concernant le drone par interval de temps
 socket.sendFakeData =  (baseOptions) => {
   try {
     setInterval( function() {

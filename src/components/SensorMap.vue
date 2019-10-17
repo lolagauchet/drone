@@ -1,9 +1,9 @@
 
 <template>
 
- 
+ <div class="card">
     <!-- map -->
-    <div class="map">
+    <div class="map ">
         <l-map :zoom="zoom" :center="marker" ref="myMap">
             <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
                 <l-marker   
@@ -17,6 +17,7 @@
         </l-map>
     </div>
 
+ </div>
   
 </template>
 
