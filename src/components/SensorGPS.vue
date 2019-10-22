@@ -29,7 +29,7 @@
 import { mapGetters } from 'vuex';
 // import droneInfos from '@/assets/drone.json';
 export default {
-  name: "Drone",
+  name: "GPS",
   data() {
     return {
       errors: []

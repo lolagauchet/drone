@@ -14,6 +14,10 @@
                     :icon-url="icon"
                 ></l-icon>
                 </l-marker>
+                   <l-polyline
+                    :lat-lng="poli"
+                  />
+                  
         </l-map>
     </div>
 
@@ -24,19 +28,27 @@
 <script>
 import { mapGetters } from 'vuex';
 // import droneInfos from '@/assets/drone.json';
-import {LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet';
+import {LMap, LTileLayer, LMarker, LIcon, LPolyline } from 'vue2-leaflet';
 import droneImg from '@/assets/drone.svg';
 export default {
   data() {
     return {
       errors: [],
-      zoom:13,
+      zoom:8,
     //   center: L.latLng(47.2382007, -1.6300958),
       url:'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
       attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     //   marker: L.latLng(47.2382007, -1.6300958),
       icon: droneImg,
-      iconSize: [25,25]
+      iconSize: [25,25],
+      polylines: [
+      {
+        points: [
+          { lat: this.sensorInfo.resources[5514], lng: this.sensorInfo.resources[5515] }
+        ],
+        visible: true
+      }
+      ]
     };
   },
   props: [
@@ -46,7 +58,8 @@ export default {
       LMap,
       LTileLayer,
       LMarker,
-      LIcon
+      LIcon,
+      LPolyline
   },
   methods: {
     latLng: function(lat, lng) {
@@ -56,6 +69,9 @@ export default {
   computed: {
     marker: function(){
         return  L.latLng(this.sensorInfo.resources[5514],this.sensorInfo.resources[5515]);
+    },
+    poli: function() {
+      return L.polyline(this.sensorInfo.resources[5514],this.sensorInfo.resources[5515])
     }
   }
 

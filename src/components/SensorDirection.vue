@@ -7,24 +7,16 @@
             <p class="sensor--name has-text-dark">{{sensorInfo.name}}</p>
             </div>
             <!-- ALTITUDE -->
-            <p class="has-text-weight-semibold">Altitude actuelle : {{sensorInfo.resources[5601]}} {{sensorInfo.resources[5701]}} </p>
-            <div class="separator"></div>
-            <div class="new_info">
-                <p>Nouvelle altitude</p>
-                <input class="input is-primary is-small" type="text">
-                <div class="button is-small">valider</div>
-            </div>
+            <p class="has-text-weight-semibold">Direction actuelle : {{sensorInfo.resources[5601]}} </p>
         </div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-// import droneInfos from '@/assets/drone.json';
-import {LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet';
 import droneImg from '@/assets/drone.svg';
 export default {
-    name: "Altitude",
+    name: "Direction",
     data() {
         return {
             errors: []
