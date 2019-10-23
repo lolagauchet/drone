@@ -9,6 +9,13 @@
             <!-- ALTITUDE -->
             <p class="has-text-weight-semibold">Altitude actuelle : {{sensorInfo.resources[5601]}} {{sensorInfo.resources[5701]}} </p>
             <div class="separator"></div>
+             <div v-if="sensorInfo.resources[5601] < 10">
+                <p><span class="has-text-weight-semibold">Etat :</span> A l'arret</p>
+            </div>
+            <div v-if="sensorInfo.resources[5601] > 10">
+              <p>Etat : En mouvement</p>
+            </div>
+            <div class="separator"></div>
             <div class="new_info">
                 <p>Nouvelle altitude</p>
                 <input class="input is-primary is-small" type="text">

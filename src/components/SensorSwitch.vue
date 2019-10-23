@@ -6,13 +6,17 @@
             <img :src="`https://aloes.io/${sensorInfo.icons[0]}`" :alt="`{{sensorInfo.name}}`" class="sensor--icon"/>
             <p class="sensor--name has-text-dark">{{sensorInfo.name}}</p>
             </div>
-            <div v-if="sensorInfo.resources[5500] == 0">
+            <div v-if="sensorInfo.resources[5500] == 0" class="drone_wrapper">
+                <p>Eteint</p>
                 <div class="button is-primary is-outlined ">ON</div>
                 <div class="button is-danger">OFF</div>
+                 <img :src="icon" class="drone_icon"/>
             </div>
-            <div v-if="sensorInfo.resources[5500] == 1">
+            <div v-if="sensorInfo.resources[5500] == 1"  class="drone_wrapper">
+                <p>Allumé</p>
                 <div class="button is-primary">ON</div>
                 <div class="button is-danger is-outlined">OFF</div>
+                 <img :src="icon" class="drone_icon drone_icon--active"/>
             </div>
         </div> 
     </div>
@@ -20,10 +24,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import droneImg from '@/assets/drone.svg';
 export default {
     data() {
         return {
-            errors: []
+            errors: [],
+            icon: droneImg
         };
     },
     props: [
@@ -38,44 +44,25 @@ export default {
 </script>
 
 <style lang="scss"> 
-  #login_form {
-  max-width: 30%;
-  margin: auto;
-  }
-  .drones{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 30px 15px;
-    width: 70%;
-    margin: auto;
-    margin-bottom: 40px;
-  }
-  .card{
-    margin-top: 0;
-    &-content {
-      text-align: left;
-      height: 100%;
-      .name{
-        margin-bottom: 20px;
-      }
+  .drone_icon{
+    width: 30px;
+    height: auto;
+    position: absolute;
+    right: 20px;
+    &--active{
+      animation: bounce 1.5s ease infinite alternate;
     }
   }
-  .separator{
-    height: 2px;
-    background-color: #f3f3f3;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  .is-danger {
+    margin-left: 5px;
   }
-  .new_info{
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-gap: 5px;
+
+  @keyframes bounce{
+      from {top: 10px;}
+      to   {top: 30px;}
   }
-  input{
-    margin-bottom: 20px;
-  }
-  .map{
-    height:500px;
+  .drone_wrapper{
+    position: relative;
   }
   .sensor{
     position: relative;

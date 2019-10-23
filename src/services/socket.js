@@ -67,10 +67,13 @@ socket.updateSocket =  (baseOptions, prop ) => {
 // envoi de fausses données concernant le drone par interval de temps
 socket.sendFakeData =  (baseOptions) => {
   try {
-    setInterval( function() {
-      socket.client.publish(baseOptions.clientId+"-in/1/3342/0/2/5500", "0")   
-    }, 5000);
+    // switch on off
+    // setTimeout( function() {
+    //   socket.client.publish(baseOptions.clientId+"-in/1/3342/0/2/5500", "0")   
+    // }, 20000);
 
+
+    // changement gps
     var latitudeVal = [47.2382007, 48.1158943, 47.9818762, 47.8733947, 48.8588377];
     var longitudeVal = [-1.6300958,-1.7584943, 0.1256527, 1.8421687, 2.2770201];
     var i = 0;
@@ -84,6 +87,13 @@ socket.sendFakeData =  (baseOptions) => {
         i++;
       }, 10000);
    
+    // changement altitude
+    var altitudeVal = [3, 7, 11, 20, 30, 50, 70, 90, 100, 110, 120, 130, 150, 180, 210, 230, 250, 280, 290, 310];
+    setInterval( function() {
+      console.log(baseOptions.clientId+"-in/1/3321/0/2/5601", altitudeVal[i]);
+      socket.client.publish(baseOptions.clientId+"-in/1/3321/0/2/5601",  altitudeVal[i].toString());
+      i++;
+    }, 6000);
 
   } 
   catch (error) {
