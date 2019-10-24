@@ -47,15 +47,46 @@ socket.initSocket =  (baseOptions) => {
 socket.updateSocket =  (baseOptions, prop ) => {
   
   console.log(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.latitude);
-  console.log(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.longitude);
   
   try {
   
-    // socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.latitude);    
+    socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.latitude);          
+    // socket.client.on('message', (topic, message) => {
+    //   console.log(message)
+    // });
+    return socket;
+  } 
+  catch (error) {
+    // logger.publish(3, 'socket', 'initSocket:err', error);
+    throw error; 
+  }
+};
+// mise à jour de la latitude du drone lorsqu'elle est modifiée sur le dashboard par l'utilisateur
+socket.updateLong =  (baseOptions, prop ) => {
+  
+  console.log(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.longitude);
+  
+  try {
+      
     socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.longitude);      
     // socket.client.on('message', (topic, message) => {
     //   console.log(message)
     // });
+    return socket;
+  } 
+  catch (error) {
+    // logger.publish(3, 'socket', 'initSocket:err', error);
+    throw error; 
+  }
+};
+// mise à jour de l'altitude du drone lorsqu'elle est modifiée sur le dashboard par l'utilisateur
+socket.updateAlt =  (baseOptions, prop ) => {
+  
+  console.log(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.altitude);
+  
+  try {
+  
+    socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.altitude);    
     return socket;
   } 
   catch (error) {
@@ -93,7 +124,7 @@ socket.sendFakeData =  (baseOptions) => {
       console.log(baseOptions.clientId+"-in/1/3321/0/2/5601", altitudeVal[i]);
       socket.client.publish(baseOptions.clientId+"-in/1/3321/0/2/5601",  altitudeVal[i].toString());
       i++;
-    }, 6000);
+    }, 20000);
 
   } 
   catch (error) {

@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard">
+     
     <div class="sensors">
 
         <Device />
@@ -13,6 +14,7 @@
             <SensorDirection :sensorInfo="sensorInfo"  v-if="sensorInfo.type === 3332" /> 
         </div>
     </div>
+    <button v-on:click="mqqtSocket()" class="button is-primary is-light">Mettre à jour les infos du drone</button>
     <div class="map--wrapper">
 
       <div
@@ -64,6 +66,12 @@ export default {
     SensorDirection,
     SensorMap,
     Device
+  },
+  methods: {
+    mqqtSocket() {
+      this.$store.dispatch("mqqtSocket");
+      this.$store.dispatch("getFullState");
+    }
   }
 };
 </script>

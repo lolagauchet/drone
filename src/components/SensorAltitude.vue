@@ -6,45 +6,57 @@
             <img :src="`https://aloes.io/${sensorInfo.icons[0]}`" :alt="`{{sensorInfo.name}}`" class="sensor--icon"/>
             <p class="sensor--name has-text-dark">{{sensorInfo.name}}</p>
             </div>
-            <!-- ALTITUDE -->
+            <!-- long / lat -->
             <p class="has-text-weight-semibold">Altitude actuelle : {{sensorInfo.resources[5601]}} {{sensorInfo.resources[5701]}} </p>
             <div class="separator"></div>
-             <div v-if="sensorInfo.resources[5601] < 10">
-                <p><span class="has-text-weight-semibold">Etat :</span> A l'arret</p>
-            </div>
-            <div v-if="sensorInfo.resources[5601] > 10">
-              <p>Etat : En mouvement</p>
-            </div>
+              <p v-if="sensorInfo.resources[5601] < 10">A l'arret</p>
+              <p v-if="sensorInfo.resources[5601] >= 10">En mouvement</p>
             <div class="separator"></div>
             <div class="new_info">
                 <p>Nouvelle altitude</p>
-                <input class="input is-primary is-small" type="text">
-                <div class="button is-small">valider</div>
-            </div>
+                <input v-model="altitude" class="input is-primary is-small" type="text" name="quantity" >
+                <div v-on:click="updateAlt()" class="button is-small">valider</div>
+            </div>         
         </div>
     </div>
+  
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 // import droneInfos from '@/assets/drone.json';
-import {LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet';
-import droneImg from '@/assets/drone.svg';
 export default {
-    name: "Altitude",
-    data() {
-        return {
-            errors: []
-        };
-    },
-    props: [
-        "sensorInfo"
-    ],
-    computed: {  
-        ...mapGetters({
-            device : 'device',
-        })
-    },
+  name: "GPS",
+  data() {
+    return {
+      errors: []
+    };
+  },
+  props: [
+    "sensorInfo"
+  ],
+  methods: {
+    updateAlt() {
+      this.$store.dispatch("updateAlt")
+    }
+  },
+   computed: {  
+    ...mapGetters({
+        device : 'device',
+    }),
+    altitude: {
+      get() {
+        return this.$store.state.altitude;
+      },
+      set(value) {
+        this.$store.commit('setValueSensor', {
+          key: 'altitude',
+          value,
+        });
+      },
+    }
+  },
+
 };
 </script>
 

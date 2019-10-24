@@ -31,7 +31,7 @@
   <p>
     <input
       type="submit"
-      value="Submit"
+      value="Se connecter"
       class="button is-primary"
     >
   </p>

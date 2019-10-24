@@ -16,7 +16,8 @@ export default new Vuex.Store({
     },
     sensors: [],
     latitude: null,
-    longitude: null
+    longitude: null,
+    altitude: null,
   },
   getters: {
     device: state => {
@@ -125,6 +126,25 @@ export default new Vuex.Store({
         'latitude':state.latitude
       })
     },
+    // mise à jour de la valeur de l'altitude 
+    updateAlt({state, commit}){
+      const baseOptions = {
+        protocolId: 'MQTT',
+        protocolVersion: 4,
+        reconnectPeriod: 3000,
+        connectTimeout: 30 * 1000,
+        clean: true,
+        clientId: this.state.loginForm.devEui,
+        username: this.state.loginForm.deviceId,
+        password: this.state.loginForm.apiKey,
+      };
+
+      socket.updateAlt(baseOptions, {
+        "ref": "3321",
+        "ressourceID": "5601",
+        'altitude':state.altitude
+      })
+    },
     // mise à jour de la valeur de la longitude 
     updateLong({state, commit}){
       const baseOptions = {
@@ -138,7 +158,7 @@ export default new Vuex.Store({
         password: this.state.loginForm.apiKey,
       };
 
-      socket.updateSocket(baseOptions, {
+      socket.updateLong(baseOptions, {
         "ref": "3336",
         "ressourceID": "5515",
         'longitude':state.longitude
