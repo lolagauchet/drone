@@ -94,6 +94,36 @@ socket.updateAlt =  (baseOptions, prop ) => {
     throw error; 
   }
 };
+// switch off par l'utilisateur
+socket.switchOff =  (baseOptions, prop ) => {
+  
+  console.log(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.off);
+  
+  try {
+  
+    socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.altitude);    
+    return socket;
+  } 
+  catch (error) {
+    // logger.publish(3, 'socket', 'initSocket:err', error);
+    throw error; 
+  }
+};
+// switch on par l'utilisateur
+socket.switchOn =  (baseOptions, prop ) => {
+  
+  console.log(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.on);
+  
+  try {
+  
+    socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.on);    
+    return socket;
+  } 
+  catch (error) {
+    // logger.publish(3, 'socket', 'initSocket:err', error);
+    throw error; 
+  }
+};
 
 // envoi de fausses données concernant le drone par interval de temps
 socket.sendFakeData =  (baseOptions) => {
@@ -109,23 +139,30 @@ socket.sendFakeData =  (baseOptions) => {
     var longitudeVal = [-1.6300958,-1.7584943, 0.1256527, 1.8421687, 2.2770201];
     var i = 0;
  
-      setInterval( function() {
-        console.log(baseOptions.clientId+"-in/1/3336/0/2/5514", latitudeVal[i]);
-        console.log(baseOptions.clientId+"-in/1/3336/0/2/5514", longitudeVal[i]);
-          
-        socket.client.publish(baseOptions.clientId+"-in/1/3336/0/2/5514", latitudeVal[i].toString());
-        socket.client.publish(baseOptions.clientId+"-in/1/3336/0/2/5515",  longitudeVal[i].toString());
-        i++;
-      }, 10000);
-   
+    setInterval( function() {
+      // console.log(baseOptions.clientId+"-in/1/3336/0/2/5514", latitudeVal[i]);
+      // console.log(baseOptions.clientId+"-in/1/3336/0/2/5514", longitudeVal[i]);
+        
+      socket.client.publish(baseOptions.clientId+"-in/1/3336/0/2/5514", latitudeVal[i].toString());
+      socket.client.publish(baseOptions.clientId+"-in/1/3336/0/2/5515",  longitudeVal[i].toString());
+      i++;
+    }, 10000);
+    // if (i > latitudeVal.length && i > longitudeVal.length) {
+    //   clearInterval(latLoop);
+    // }
+
     // changement altitude
     var altitudeVal = [3, 7, 11, 20, 30, 50, 70, 90, 100, 110, 120, 130, 150, 180, 210, 230, 250, 280, 290, 310];
     setInterval( function() {
-      console.log(baseOptions.clientId+"-in/1/3321/0/2/5601", altitudeVal[i]);
+      // console.log(baseOptions.clientId+"-in/1/3321/0/2/5601", altitudeVal[i]);
       socket.client.publish(baseOptions.clientId+"-in/1/3321/0/2/5601",  altitudeVal[i].toString());
       i++;
-    }, 20000);
+      
+    },10000);
 
+    // if (i > altitudeVal.length) {
+    //   clearInterval(altLoop);
+    // }
   } 
   catch (error) {
     throw error; 

@@ -18,6 +18,8 @@ export default new Vuex.Store({
     latitude: null,
     longitude: null,
     altitude: null,
+    off: "false",
+    on: "true",
   },
   getters: {
     device: state => {
@@ -162,6 +164,44 @@ export default new Vuex.Store({
         "ref": "3336",
         "ressourceID": "5515",
         'longitude':state.longitude
+      })
+    },
+    // switch off
+    switchOff({state, commit}){
+      const baseOptions = {
+        protocolId: 'MQTT',
+        protocolVersion: 4,
+        reconnectPeriod: 3000,
+        connectTimeout: 30 * 1000,
+        clean: true,
+        clientId: this.state.loginForm.devEui,
+        username: this.state.loginForm.deviceId,
+        password: this.state.loginForm.apiKey,
+      };
+
+      socket.switchOff(baseOptions, {
+        "ref": "3342",
+        "ressourceID": "5500",
+        'off':state.off
+      })
+    },
+    // switch on
+    switchOn({state, commit}){
+      const baseOptions = {
+        protocolId: 'MQTT',
+        protocolVersion: 4,
+        reconnectPeriod: 3000,
+        connectTimeout: 30 * 1000,
+        clean: true,
+        clientId: this.state.loginForm.devEui,
+        username: this.state.loginForm.deviceId,
+        password: this.state.loginForm.apiKey,
+      };
+
+      socket.switchOn(baseOptions, {
+        "ref": "3342",
+        "ressourceID": "5500",
+        'on':state.on
       })
     },
     mqqtSocket(){

@@ -9,7 +9,7 @@
 
   <p>
   <p>
-    <label for="deviceId">deviceId</label>
+    <label for="deviceId" class="has-text-weight-semibold">deviceId</label>
     <input
      v-model="deviceId"  
       id="deviceId"
@@ -19,7 +19,7 @@
   </p>
   
   <p>
-    <label for="apiKey">apiKey </label>
+    <label for="apiKey" class="has-text-weight-semibold">apiKey </label>
     <input
      v-model="apiKey"  
       id="apiKey"

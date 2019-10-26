@@ -8,14 +8,14 @@
             </div>
             <div v-if="sensorInfo.resources[5500] == 0" class="drone_wrapper">
                 <p>Eteint</p>
-                <div class="button is-primary is-outlined ">ON</div>
+                <div class="button is-primary is-outlined"  v-on:click="switchOn()">ON</div>
                 <div class="button is-danger">OFF</div>
                  <img :src="icon" class="drone_icon"/>
             </div>
             <div v-if="sensorInfo.resources[5500] == 1"  class="drone_wrapper">
                 <p>Allumé</p>
                 <div class="button is-primary">ON</div>
-                <div class="button is-danger is-outlined">OFF</div>
+                <div class="button is-danger is-outlined"  v-on:click="switchOff()">OFF</div>
                  <img :src="icon" class="drone_icon drone_icon--active"/>
             </div>
         </div> 
@@ -34,11 +34,19 @@ export default {
     },
     props: [
         "sensorInfo"
-    ],
+    ], 
+    methods: {
+      switchOff() {
+        this.$store.dispatch("switchOff")
+      },
+      switchOn() {
+        this.$store.dispatch("switchOn")
+      }
+    },
     computed: {  
-        ...mapGetters({
-            device : 'device',
-        })
+      ...mapGetters({
+          device : 'device',
+      })
     }
 };
 </script>
