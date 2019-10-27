@@ -58,18 +58,6 @@ export default {
 </script>
 
 <style lang="scss"> 
-  #login_form {
-  max-width: 30%;
-  margin: auto;
-  }
-  .drones{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 30px 15px;
-    width: 70%;
-    margin: auto;
-    margin-bottom: 40px;
-  }
   .card{
     height: 100%;
     margin-top: 0;
@@ -94,9 +82,6 @@ export default {
   }
   input{
     margin-bottom: 20px;
-  }
-  .map{
-    height:500px;
   }
   .sensor{
     position: relative;

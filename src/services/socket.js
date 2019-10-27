@@ -1,9 +1,6 @@
 
 import { EventBus } from '@/services/eventBus.js';
-var mqtt = require('mqtt')
-// import mqtt from 'async-mqtt';
-// import logger from './logger';
-// import PubSub from './PubSub';
+var mqtt = require('mqtt');
 
 const Storage = window.sessionStorage;
 
@@ -13,26 +10,20 @@ const payload = 'notsaved';
 
 // connexion mqtt
 socket.initSocket =  (baseOptions) => {
-  // console.log(baseOptions)
   try {
-    //PROJET MQTT
     socket.client =  mqtt.connect(brokerUrl, baseOptions);
     socket.client.on('connect', async state => {
-        // console.log(socket)
-        
         socket.client.subscribe(baseOptions.clientId+"-in/1/#", () => {
           console.log('subscribe')
         })
         //creation d'un sensor
-        // socket.client.publish(baseOptions.clientId+"-in/0/3346/0/2/5700", payload)  
+        // socket.client.publish(baseOptions.clientId+"-in/0/3346/0/2/5700", payload); 
+
         // suppression d'un sensor
-        // socket.client.publish(baseOptions.clientId+"-out/3/3332/0/2/5601", payload)  
-        // console.log(baseOptions.clientId+"-out/3/3332/0/2/5601", payload);
+        // socket.client.publish(baseOptions.clientId+"-out/3/3332/0/2/5601", payload) ; 
 
     });
     socket.client.on('message', (topic, message) => {
-      // console.log("dofdopfidospfi", topic);
-      // return topic.split('/');
       var topicSplit = topic.split('/');
       EventBus.$emit('new-received-message', {topicSplit, message});
     });
@@ -150,43 +141,32 @@ socket.sendFakeData =  (baseOptions) => {
     // }, 20000);
 
 
-    // changement gps
-    var latitudeVal = [47.2382007, 48.1158943, 47.9818762, 47.8733947, 48.8588377];
-    var longitudeVal = [-1.6300958,-1.7584943, 0.1256527, 1.8421687, 2.2770201];
+    // changement valeur gps du drone (latitude et longitude)
+    var latitudeVal = [46.1620507, 46.3273551, 46.4586522, 46.6659226, 46.8652961, 47.0358176, 47.2382007, 47.2769351, 47.3357412, 47.6576571, 48.1159102, 48.0577756 ];
+    var longitudeVal = [-1.2112805, -0.5313457, -0.8237369, -1.4862217, -0.6134186, -0.9449882, -1.6300958, -2.3091717, -2.4747717, -2.7834929, -1.7234739, -0.8041199];
     var i = 0;
  
     setInterval( function() {
-      // console.log(baseOptions.clientId+"-in/1/3336/0/2/5514", latitudeVal[i]);
-      // console.log(baseOptions.clientId+"-in/1/3336/0/2/5514", longitudeVal[i]);
-        
       socket.client.publish(baseOptions.clientId+"-in/1/3336/0/2/5514", latitudeVal[i].toString());
       socket.client.publish(baseOptions.clientId+"-in/1/3336/0/2/5515",  longitudeVal[i].toString());
       i++;
     }, 10000);
-    // if (i > latitudeVal.length && i > longitudeVal.length) {
-    //   clearInterval(latLoop);
-    // }
 
-    // changement altitude
+    // changement valeur de l'altitude du drone
     var altitudeVal = [3, 7, 11, 20, 30, 50, 70, 90, 100, 110, 120, 130, 150, 180, 210, 230, 250, 280, 290, 310];
     setInterval( function() {
-      // console.log(baseOptions.clientId+"-in/1/3321/0/2/5601", altitudeVal[i]);
       socket.client.publish(baseOptions.clientId+"-in/1/3321/0/2/5601",  altitudeVal[i].toString());
       i++;
       
-    },10000);
-    // if (i > altitudeVal.length) {
-    //   clearInterval(altLoop);
-    // }
+    },8000);
 
-    // changement vitesse
+    // changement valeur de la vitesse du drone
     var rateVal = [3, 7, 11, 20, 30, 50, 40, 22, 45, 12, 60, 3, 7, 11, 20, 30, 50, 40, 22, 45, 12, 60];
     setInterval( function() {
-      // console.log(baseOptions.clientId+"-in/1/3346/0/2/5700", rateVal[i]);
       socket.client.publish(baseOptions.clientId+"-in/1/3346/0/2/5700",  rateVal[i].toString());
       i++;
       
-    },10000);
+    },9000);
 
   } 
   catch (error) {

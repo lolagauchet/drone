@@ -61,10 +61,6 @@ export default {
 </script>
 
 <style lang="scss"> 
-  #login_form {
-  max-width: 30%;
-  margin: auto;
-  }
   .drones{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -97,9 +93,6 @@ export default {
   }
   input{
     margin-bottom: 20px;
-  }
-  .map{
-    height:500px;
   }
   .sensor{
     position: relative;

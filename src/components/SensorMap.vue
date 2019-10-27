@@ -27,13 +27,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
-// import droneInfos from '@/assets/drone.json';
 import {LMap, LTileLayer, LMarker, LIcon, LPolyline } from 'vue2-leaflet';
 import droneImg from '@/assets/drone.svg';
 export default {
-  // state: {
-  //   latlong: [this.sensorInfo.resources[5514],this.sensorInfo.resources[5515]]
-  // },
   data() {
     return {
       errors: [],
@@ -48,11 +44,6 @@ export default {
       }
     };
   },
-  // mounted () {
-  //   this.$nextTick(() => {
-  //     this.$refs.myMap.mapObject.L.polyline(L.latLng(this.sensorInfo.resources[5514],this.sensorInfo.resources[5515]), {color: 'red'});
-  //   })
-  // },
   props: [
     "sensorInfo"
   ],
@@ -81,18 +72,6 @@ export default {
 </script>
 
 <style lang="scss"> 
-  #login_form {
-  max-width: 30%;
-  margin: auto;
-  }
-  .drones{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 30px 15px;
-    width: 70%;
-    margin: auto;
-    margin-bottom: 40px;
-  }
   .card{
     margin-top: 0;
     &-content {

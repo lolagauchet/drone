@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from 'axios';
-// import droneInfo from '@/assets/drone.json';
 import socket from '@/services/socket.js';
 
 Vue.use(Vuex);
@@ -34,6 +33,7 @@ export default new Vuex.Store({
     setValue(state, {key, value}){
       state.loginForm[key] = value
     },
+    //mise à jour des valeur des sensor dans le state
     setValueSensor(state, {key, value}){
       state[key] = value
     },
@@ -42,7 +42,6 @@ export default new Vuex.Store({
     },
     // mise à jour du sensor lors de la reception d'une nouvelle donnée
     updateSensor(state,payload){
-      // console.log(payload.value.topicSplit);
       var sensorModified = state.sensors.value.find(function(sensor) {
         return sensor.type == payload.value.topicSplit[2] && sensor.nativeNodeId == payload.value.topicSplit[3] && sensor.nativeSensorId == payload.value.topicSplit[4]
       });
@@ -68,8 +67,6 @@ export default new Vuex.Store({
                 key: "devEui",
                 value: response.data.device.devEui
               })
-              console.log(response.data);
-              console.log(response.data.device);
             
               resolve(true);
               return response.data.device
@@ -83,6 +80,7 @@ export default new Vuex.Store({
       })
       // .then(res => res.json())
     },
+    //récupération des valeurs des sensors
     getFullState({state, commit}){
         axios
           .get(`${process.env.VUE_APP_HTTP_URL}` + this.state.loginForm.deviceId, {
@@ -92,13 +90,11 @@ export default new Vuex.Store({
             }
           })
           .then(response => {
-            // console.log(response);
             if (response.data && response.data.sensors) {
               commit('setSensors', {
                 key: "sensors",
                 value: response.data.sensors
               })
-              // console.log(response.data.sensors);
               return response.data.sensors
             }
             return 'sensors not found'
@@ -224,6 +220,7 @@ export default new Vuex.Store({
         'on':state.on
       })
     },
+    //connexion mqqt
     mqqtSocket(){
       const baseOptions = {
         //  keepalive: 60,
@@ -243,18 +240,13 @@ export default new Vuex.Store({
       // console.log(readMessage);
               
     },
-    // mise à jour du sensor lors de la reception d'une nouvelle donnée
+    // mise à jour des valeurs d'un sensor lors de la reception de nouvelles données
     updateSensorGlobal(context, {topicSplit, message}){
-      // console.log(topicSplit);
       var payload = {"topicSplit":topicSplit,"message": message} 
-      // console.log(payload);
       context.commit('updateSensor', {
         key: "topicSplit",
         value: payload
       })
     }
-    // getSensors(context){
-    //   context.commit("setSensors", droneInfo)
-    // }
   }
 });
