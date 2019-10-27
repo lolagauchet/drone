@@ -3,8 +3,17 @@
     <div class="card"> 
         <div class='card-content sensor'>
             <div class="sensor--header">
-            <img :src="`https://aloes.io/${sensorInfo.icons[0]}`" :alt="`{{sensorInfo.name}}`" class="sensor--icon"/>
-            <p class="sensor--name has-text-dark">{{sensorInfo.name}}</p>
+              <img :src="icon" class="sensor--icon"/>
+              <p class="sensor--name has-text-dark">Drone infos</p>
+            </div>
+            <div class="infos">  
+              <p>{{device.name}}</p>
+              <p>{{device.description}}</p>
+            </div>
+            <div class="separator"></div>
+            <div class="switch--header">
+              <img :src="`https://aloes.io/${sensorInfo.icons[0]}`" :alt="`{{sensorInfo.name}}`" class="sensor--icon" />
+              <p class="sensor--name has-text-dark">{{sensorInfo.name}}</p>
             </div>
             <div v-if="sensorInfo.resources[5500] == 0" class="drone_wrapper">
                 <p>Eteint</p>
@@ -52,6 +61,9 @@ export default {
 </script>
 
 <style lang="scss"> 
+  .card{
+    height: 100%;
+  }
   .drone_icon{
     width: 30px;
     height: auto;
@@ -60,6 +72,12 @@ export default {
     &--active{
       animation: bounce 1.5s ease infinite alternate;
     }
+  }
+  .separator{
+    height: 2px;
+    background-color: #f3f3f3;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
   .is-danger {
     margin-left: 5px;
@@ -71,6 +89,12 @@ export default {
   }
   .drone_wrapper{
     position: relative;
+  }
+  .switch--header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
   }
   .sensor{
     position: relative;

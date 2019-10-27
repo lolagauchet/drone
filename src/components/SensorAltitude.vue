@@ -26,7 +26,7 @@
 import { mapGetters } from 'vuex';
 // import droneInfos from '@/assets/drone.json';
 export default {
-  name: "GPS",
+  name: "Altitude",
   data() {
     return {
       errors: []
@@ -74,6 +74,7 @@ export default {
     margin-bottom: 40px;
   }
   .card{
+    height: 100%;
     margin-top: 0;
     &-content {
       text-align: left;

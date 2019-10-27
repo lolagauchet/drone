@@ -1,20 +1,23 @@
 <template>
   <div class="dashboard">
-     
-    <div class="sensors">
+    <div class="left">
+      <button v-on:click="mqqtSocket()" class="button is-primary is-light">Mettre à jour les infos du drone</button>
+      <div class="sensors">
 
-        <Device />
-        <div 
-            :key="sensorInfo.id"
-            v-for="sensorInfo in droneInfo.value">
-        
-            <SensorGPS :sensorInfo="sensorInfo"  v-if="sensorInfo.type === 3336"/>
-            <SensorAltitude :sensorInfo="sensorInfo" v-if="sensorInfo.type === 3321" />
-            <SensorSwitch :sensorInfo="sensorInfo"  v-if="sensorInfo.type === 3342" /> 
-            <SensorDirection :sensorInfo="sensorInfo"  v-if="sensorInfo.type === 3332" /> 
-        </div>
+          <!-- <Device /> -->
+          <div 
+              :key="sensorInfo.id"
+              v-for="sensorInfo in droneInfo.value">
+          
+              <SensorGPS :sensorInfo="sensorInfo"  v-if="sensorInfo.type === 3336"/>
+              <SensorAltitude :sensorInfo="sensorInfo" v-if="sensorInfo.type === 3321" />
+              <SensorRate :sensorInfo="sensorInfo" v-if="sensorInfo.type === 3346" />
+              <SensorSwitch :sensorInfo="sensorInfo"  v-if="sensorInfo.type === 3342" /> 
+              <SensorDirection :sensorInfo="sensorInfo"  v-if="sensorInfo.type === 3332" /> 
+          </div>
+      </div>
     </div>
-    <button v-on:click="mqqtSocket()" class="button is-primary is-light">Mettre à jour les infos du drone</button>
+   
     <div class="map--wrapper">
 
       <div
@@ -34,6 +37,7 @@ import SensorAltitude from "@/components/SensorAltitude.vue";
 import SensorSwitch from "@/components/SensorSwitch.vue";
 import SensorDirection from "@/components/SensorDirection.vue";
 import SensorMap from "@/components/SensorMap.vue";
+import SensorRate from "@/components/SensorRate.vue";
 import socket from "@/services/socket.js";
 import { EventBus } from '@/services/eventBus.js';
 
@@ -65,6 +69,7 @@ export default {
     SensorSwitch,
     SensorDirection,
     SensorMap,
+    SensorRate,
     Device
   },
   methods: {
@@ -76,12 +81,22 @@ export default {
 };
 </script>
 <style lang="scss"> 
+  .dashboard{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 30px 15px;
+  }
+  .button{
+    margin-bottom: 30px;
+  }
   .sensors{
+    padding: 0 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 30px 15px;
-    width: 70%;
-    margin: auto;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 30px 15px;
+    >div{
+      margin-bottom: 20px;
+    }
   }
   .map{
     width: 100%;

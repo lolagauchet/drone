@@ -94,6 +94,7 @@ export default {
     margin-bottom: 40px;
   }
   .card{
+    height: 100%;
     margin-top: 0;
     &-content {
       text-align: left;

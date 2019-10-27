@@ -18,6 +18,7 @@ export default new Vuex.Store({
     latitude: null,
     longitude: null,
     altitude: null,
+    rate: null,
     off: "false",
     on: "true",
   },
@@ -145,6 +146,25 @@ export default new Vuex.Store({
         "ref": "3321",
         "ressourceID": "5601",
         'altitude':state.altitude
+      })
+    },
+    // mise à jour de la valeur de la vitesse 
+    updateRate({state, commit}){
+      const baseOptions = {
+        protocolId: 'MQTT',
+        protocolVersion: 4,
+        reconnectPeriod: 3000,
+        connectTimeout: 30 * 1000,
+        clean: true,
+        clientId: this.state.loginForm.devEui,
+        username: this.state.loginForm.deviceId,
+        password: this.state.loginForm.apiKey,
+      };
+
+      socket.updateRate(baseOptions, {
+        "ref": "3346",
+        "ressourceID": "5700",
+        'rate':state.rate
       })
     },
     // mise à jour de la valeur de la longitude 

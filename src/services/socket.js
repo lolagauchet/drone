@@ -23,10 +23,11 @@ socket.initSocket =  (baseOptions) => {
         socket.client.subscribe(baseOptions.clientId+"-in/1/#", () => {
           console.log('subscribe')
         })
-        // socket.client.publish(baseOptions.clientId+"-in/0/3342/0/2/5500", payload)  
+        //creation d'un sensor
+        // socket.client.publish(baseOptions.clientId+"-in/0/3346/0/2/5700", payload)  
         // suppression d'un sensor
         // socket.client.publish(baseOptions.clientId+"-out/3/3332/0/2/5601", payload)  
-        console.log(baseOptions.clientId+"-out/3/3332/0/2/5601", payload);
+        // console.log(baseOptions.clientId+"-out/3/3332/0/2/5601", payload);
 
     });
     socket.client.on('message', (topic, message) => {
@@ -87,6 +88,21 @@ socket.updateAlt =  (baseOptions, prop ) => {
   try {
   
     socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.altitude);    
+    return socket;
+  } 
+  catch (error) {
+    // logger.publish(3, 'socket', 'initSocket:err', error);
+    throw error; 
+  }
+};
+// mise à jour de la vitesse du drone lorsqu'elle est modifiée sur le dashboard par l'utilisateur
+socket.updateRate =  (baseOptions, prop ) => {
+  
+  console.log(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.rate);
+  
+  try {
+  
+    socket.client.publish(baseOptions.clientId+"-out/1/"+ prop.ref +"/0/2/"+ prop.ressourceID, prop.rate);    
     return socket;
   } 
   catch (error) {
@@ -159,10 +175,19 @@ socket.sendFakeData =  (baseOptions) => {
       i++;
       
     },10000);
-
     // if (i > altitudeVal.length) {
     //   clearInterval(altLoop);
     // }
+
+    // changement vitesse
+    var rateVal = [3, 7, 11, 20, 30, 50, 40, 22, 45, 12, 60, 3, 7, 11, 20, 30, 50, 40, 22, 45, 12, 60];
+    setInterval( function() {
+      // console.log(baseOptions.clientId+"-in/1/3346/0/2/5700", rateVal[i]);
+      socket.client.publish(baseOptions.clientId+"-in/1/3346/0/2/5700",  rateVal[i].toString());
+      i++;
+      
+    },10000);
+
   } 
   catch (error) {
     throw error; 

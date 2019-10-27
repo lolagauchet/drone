@@ -6,30 +6,54 @@
             <img :src="`https://aloes.io/${sensorInfo.icons[0]}`" :alt="`{{sensorInfo.name}}`" class="sensor--icon"/>
             <p class="sensor--name has-text-dark">{{sensorInfo.name}}</p>
             </div>
-            <!-- ALTITUDE -->
-            <p class="has-text-weight-semibold">Direction actuelle : {{sensorInfo.resources[5601]}} </p>
+            <!-- long / lat -->
+            <p class="has-text-weight-semibold">Vitesse actuelle : {{sensorInfo.resources[5700]}} {{sensorInfo.resources[5701]}} </p>
+            <div class="separator"></div>
+            <div class="new_info">
+                <p>Nouvelle vitesse</p>
+                <input v-model="rate" class="input is-primary is-small" type="text" name="quantity" >
+                <div v-on:click="updateRate()" class="button is-small">valider</div>
+            </div>         
         </div>
     </div>
+  
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import droneImg from '@/assets/drone.svg';
+// import droneInfos from '@/assets/drone.json';
 export default {
-    name: "Direction",
-    data() {
-        return {
-            errors: []
-        };
-    },
-    props: [
-        "sensorInfo"
-    ],
-    computed: {  
-        ...mapGetters({
-            device : 'device',
-        })
-    },
+  name: "Rate",
+  data() {
+    return {
+      errors: []
+    };
+  },
+  props: [
+    "sensorInfo"
+  ],
+  methods: {
+    updateRate() {
+      this.$store.dispatch("updateRate")
+    }
+  },
+   computed: {  
+    ...mapGetters({
+        device : 'device',
+    }),
+    rate: {
+      get() {
+        return this.$store.state.rate;
+      },
+      set(value) {
+        this.$store.commit('setValueSensor', {
+          key: 'rate',
+          value,
+        });
+      },
+    }
+  },
+
 };
 </script>
 

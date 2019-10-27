@@ -1,7 +1,7 @@
 
 <template>
 
- <div class="card">
+
     <!-- map -->
     <div class="map">
         <l-map :zoom="zoom" :center="marker" ref="myMap">
@@ -22,7 +22,6 @@
         </l-map>
     </div>
 
- </div>
   
 </template>
 
