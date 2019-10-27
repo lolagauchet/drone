@@ -24,6 +24,7 @@ socket.initSocket =  (baseOptions) => {
 
     });
     socket.client.on('message', (topic, message) => {
+      //découpage du topic reçu afin de pouvoir utiliser ses propriétés indépendamment les unes des autres
       var topicSplit = topic.split('/');
       EventBus.$emit('new-received-message', {topicSplit, message});
     });

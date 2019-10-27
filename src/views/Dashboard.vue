@@ -42,7 +42,6 @@ export default {
   name: "login",
   
   mounted(){
-    // this.$store.dispatch("getSensors"),
     this.$store.dispatch("getFullState");
     var vm = this;
     EventBus.$on('new-received-message', ({topicSplit, message}) => {
