@@ -1,5 +1,4 @@
 # Drone simulation - Projet Vuejs
-Lola Gauchet
 
 ## Project setup
 ```
@@ -20,7 +19,7 @@ L'application permet de distinguer si un drone ne s'est pas déplacé pendant pl
 
 Enfin il est posssible d'envoyer des commandes au drone ( changement de vitesse, start, stop ... ) via un champ texte complété par la liste des commandes valides.
 ```
-## Sensors utilisé
+## Sensors utilisés
 ### Switch ON/OFF
 Visualisation de l'état du drone  
 
@@ -61,5 +60,5 @@ Possibilité de modifier la valeur de la vitesse en rentrant une valeur, cliquan
 ## Sources externes
 
 1. Utilisation de la library **vue2-leaflet** pour la mise en place de la map
-2. Utilisation du framework CSS **Bulma** afin de rendre l'intégration des composants plus rapide
+2. Utilisation du framework CSS **Bulma** afin de rendre l'intégration plus rapide
 
