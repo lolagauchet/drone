@@ -21,7 +21,7 @@ L'application permet de distinguer si un drone ne s'est pas déplacé pendant pl
 Enfin il est posssible d'envoyer des commandes au drone ( changement de vitesse, start, stop ... ) via un champ texte complété par la liste des commandes valides.
 ```
 ## Sensors utilisé
-#### Switch ON/OFF
+### Switch ON/OFF
 Visualisation de l'état du drone  
 
 ![Switch](/src/assets/switch.png)
@@ -30,7 +30,7 @@ Visualisation de l'état du drone
 
 Possibilité d'éteindre ou d'allumer le drone en cliquant sur le switch puis en mettant à jour les données du drone  
 
-#### Données GPS
+### Données GPS
 Visualisation en temps réel des coordonnées GPS du drone  
 
 ![Coordonnées GPS](/src/assets/gps.png)
@@ -42,7 +42,7 @@ Visualisation en temps réel de la position du drone sur une map, suivant les co
 
 ![Emplacment sur une map](/src/assets/map.png)
 
-#### Altitude
+### Altitude
 Visualisation en temps réel de l'altitude du drone.  
 
 ![Altitude](/src/assets/alt.png)
@@ -50,7 +50,7 @@ Visualisation en temps réel de l'altitude du drone.
 **Action**  
 Possibilité de modifier la valeur de l'altitude en rentrant une valeur, cliquant sur valider puis en mettant à jour les valeurs du drone
 
-#### Vitesse
+### Vitesse
 Visualisation en temps réel de la vitesse du drone en m/s.  
 
 ![Altitude](/src/assets/rate.png)
