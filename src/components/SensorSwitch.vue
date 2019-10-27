@@ -9,6 +9,7 @@
             <div class="infos">  
               <p>{{device.name}}</p>
               <p>{{device.description}}</p>
+              <p>{{device.status}}</p>
             </div>
             <div class="separator"></div>
             <div class="switch--header">
@@ -17,15 +18,17 @@
             </div>
             <div v-if="sensorInfo.resources[5500] == 0" class="drone_wrapper">
                 <p>Eteint</p>
-                <div class="button is-primary is-outlined"  v-on:click="switchOn()">ON</div>
-                <div class="button is-danger">OFF</div>
-                 <img :src="icon" class="drone_icon"/>
+                <!-- <div class="button is-primary is-outlined"  v-on:click="switchOn()">ON</div>
+                <div class="button is-danger">OFF</div> -->
+                <img :src="off"  v-on:click="switchOn()" class="switch_icon"/>
+                <img :src="icon" class="drone_icon" />
             </div>
             <div v-if="sensorInfo.resources[5500] == 1"  class="drone_wrapper">
                 <p>Allumé</p>
-                <div class="button is-primary">ON</div>
-                <div class="button is-danger is-outlined"  v-on:click="switchOff()">OFF</div>
-                 <img :src="icon" class="drone_icon drone_icon--active"/>
+                <!-- <div class="button is-primary">ON</div>
+                <div class="button is-danger is-outlined"  v-on:click="switchOff()">OFF</div> -->
+                <img :src="on"  v-on:click="switchOff()" class="switch_icon"/>
+                <img :src="icon" class="drone_icon drone_icon--active"/>
             </div>
         </div> 
     </div>
@@ -34,11 +37,15 @@
 <script>
 import { mapGetters } from 'vuex';
 import droneImg from '@/assets/drone.svg';
+import offImg from '@/assets/switchOff.svg';
+import onImg from '@/assets/switchOn.svg';
 export default {
     data() {
         return {
             errors: [],
-            icon: droneImg
+            icon: droneImg,
+            on: onImg,
+            off: offImg,
         };
     },
     props: [
@@ -72,6 +79,11 @@ export default {
     &--active{
       animation: bounce 1.5s ease infinite alternate;
     }
+  }
+  .switch_icon{
+    width: 30px;
+    height: auto;
+    cursor: pointer;
   }
   .separator{
     height: 2px;
